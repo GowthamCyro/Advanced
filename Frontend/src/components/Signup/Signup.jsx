@@ -58,7 +58,7 @@ function Signup() {
       fd.append('coverImage',coverImage);
     }
     
-    axios.post('api/v1/users/register',fd)
+    axios.post('/api/v1/users/register',fd)
     .then(function (response) {
       setLoading(false);
       console.log(response);
@@ -292,7 +292,7 @@ function Signup() {
                 <hr className="w-full border-[0.1px] border-white" />
               </div>
               <button className="inline-flex w-full items-center justify-center gap-3 border-[1px] border-white bg-black p-3 text-center text-white" onClick={()=>{
-                window.open("http://localhost:7000/api/v1/socialSign/google","_self");
+                window.open('/api/v1/socialSign/google','_self');
               }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

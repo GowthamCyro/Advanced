@@ -16,7 +16,7 @@ function ForgotPasswordEmail() {
             setSuccess('');
             return;
         }
-        await axios.post(`http://localhost:7000/api/v1/users/reset-password/${params.token}`, { newPassword })
+        await axios.post('/api/v1'+`/users/reset-password/${params.token}`, { newPassword })
         .then(() => {
             setSuccess('Password changed successfully!');
             setError('');

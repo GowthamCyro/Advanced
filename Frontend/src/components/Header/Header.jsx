@@ -8,7 +8,7 @@ function Header({user,setUser}) {
 
     const handleLogout = () => {
         try {
-            axios.get('api/v1/users/logout', { withCredentials: true })
+            axios.get('/api/v1/users/logout', { withCredentials: true })
             .then((response) => {
                 setUser(null); 
                 navigate('/'); 

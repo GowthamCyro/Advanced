@@ -13,7 +13,7 @@ function UpdateDetails() {
         e.preventDefault();
         try {
             await axios.post(
-                "api/v1/socialSign/updateDetails",
+                "/api/v1/socialSign/updateDetails",
                 { username, password },
                 { withCredentials: true }
             ).then((response) => {

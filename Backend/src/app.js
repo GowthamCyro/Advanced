@@ -30,6 +30,9 @@ app.use(cookieParser())
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get("/",(req,res) => {
+  res.json("Hello");
+})
 
 // import routes
 import userRouter from './routes/user.routes.js'

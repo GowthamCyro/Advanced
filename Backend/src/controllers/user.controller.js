@@ -26,6 +26,7 @@ const generateAccessAndRefreshTokens = async(userId) => {
 }
 
 const verifyEmail = asyncHandler( async(req,res) =>  {
+    console.log("Verification Process Started");
     const tempUser = await TempUser.findById(req.params.id);
 
     if(!tempUser){
