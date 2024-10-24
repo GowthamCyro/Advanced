@@ -1,15 +1,25 @@
 {
-    "version" : 2,
+    "version": 2,
     "builds": [
         {
-        "src": "server.js",
-        "use": "@vercel/node"
+            "src": "server.js",
+            "use": "@vercel/node"
         }
     ],
     "routes": [
         {
-        "src": "/(.*)",
-        "dest": "/"
+            "src": "/api/v1/(.*)",
+            "dest": "/server.js"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/public/$1"
         }
-    ]
+    ],
+    "env": {
+        "MONGODB_URI": "@your-mongodb-uri", 
+        "DB_NAME": "your-database-name",
+        "CORS_ORIGIN": "*",
+        "PORT": "8000"
+    }
 }
