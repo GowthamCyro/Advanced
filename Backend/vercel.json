@@ -15,11 +15,5 @@
             "src": "/(.*)",
             "dest": "/public/$1"
         }
-    ],
-    "env": {
-        "MONGODB_URI": "@your-mongodb-uri", 
-        "DB_NAME": "your-database-name",
-        "CORS_ORIGIN": "*",
-        "PORT": "8000"
-    }
+    ]
 }
