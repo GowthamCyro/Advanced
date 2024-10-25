@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
-function EmailVerify() {
+function EmailVerify({baseUrl}) {
     const [validUrl, setValidUrl] = useState(null); 
     const [loading, setLoading] = useState(false);  
     const param = useParams();
@@ -10,7 +10,7 @@ function EmailVerify() {
     const handleVerifyEmail = async () => {
         setLoading(true);
         try {
-            await axios.get('/api/v1/' + `users/${param.id}/verify/${param.token}`)
+            await axios.get(baseUrl +'/api/v1/' + `users/${param.id}/verify/${param.token}`)
             setValidUrl(true);   
         } catch (error) {
             console.log(error);

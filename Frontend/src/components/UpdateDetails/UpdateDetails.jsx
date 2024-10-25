@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function UpdateDetails() {
+function UpdateDetails({baseUrl}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -13,7 +13,7 @@ function UpdateDetails() {
         e.preventDefault();
         try {
             await axios.post(
-                "/api/v1/socialSign/updateDetails",
+                baseUrl + "/api/v1/socialSign/updateDetails",
                 { username, password },
                 { withCredentials: true }
             ).then((response) => {

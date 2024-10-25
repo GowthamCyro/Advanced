@@ -28,7 +28,7 @@ function Login() {
       'password' : password
     }
 
-    axios.post('/api/v1/users/login',fd,{ withCredentials: true })
+    axios.post(baseUrl + '/api/v1/users/login',fd,{ withCredentials: true })
     .then(function (response) {
       setLoading(false);
       toast.success("User Logged In successfully!",{
@@ -88,7 +88,7 @@ function Login() {
   }
 
   const googleLogin = () => {
-      window.open('/api/v1/socialSign/google','_self')
+      window.open(baseUrl + '/api/v1/socialSign/google','_self')
       .then(function(response){
         console.log(response);
         setTimeout(()=>{

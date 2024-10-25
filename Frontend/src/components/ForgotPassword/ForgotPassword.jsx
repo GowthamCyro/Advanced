@@ -5,14 +5,14 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function ForgotPassword() {
+function ForgotPassword({baseUrl}) {
     const navigate = useNavigate()  
     const [email, setEmail] = useState('')
     const [loading,setLoading] = useState(false)
     const startRecovery = async(e) => {
         e.preventDefault();
         setLoading(true);
-        await axios.post("/api/v1/users/forgotPassword",{"email" : email })
+        await axios.post(baseUrl + "/api/v1/users/forgotPassword",{"email" : email })
         .then(function (response) {
             setLoading(false);
             toast.success("Email Sent Successfully !",{

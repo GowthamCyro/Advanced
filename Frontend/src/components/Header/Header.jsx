@@ -2,13 +2,13 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import {Link,NavLink,useNavigate} from 'react-router-dom'
 
-function Header({user,setUser}) {
+function Header({user,setUser,baseUrl}) {
     const navigate = useNavigate();
     console.log(user);
 
     const handleLogout = () => {
         try {
-            axios.get('/api/v1/users/logout', { withCredentials: true })
+            axios.get(baseUrl + '/api/v1/users/logout', { withCredentials: true })
             .then((response) => {
                 setUser(null); 
                 navigate('/'); 

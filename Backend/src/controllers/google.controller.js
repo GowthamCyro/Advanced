@@ -86,7 +86,7 @@ const googleCallback = (req, res, next) => {
                 return res
                 .cookie("accessToken", accessToken, options)
                 .cookie("refreshToken", refreshToken, options)
-                .redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}`);
+                .redirect(`${process.env.CLIENT_URL || "https://advanced-gcj1.vercel.app"}`);
             }
 
         } catch (error) {

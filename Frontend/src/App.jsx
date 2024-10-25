@@ -50,11 +50,12 @@ function App() {
   const [user, setUser] = useState(null);
   const location = useLocation();
   const userLogged = location.state?.userLogged;
+  const backendUrl = "https://advanced-hazel.vercel.app";
 
   useEffect(() => {
       const getUser = () => {
           axios
-              .get("api/v1/users/getCurrentUser", { withCredentials: true })
+              .get(backendUrl + "/api/v1/users/getCurrentUser", { withCredentials: true })
               .then((response) => {
                   setUser(response.data);
               })
@@ -68,17 +69,17 @@ function App() {
   return (
       <div>
           <Routes>
-              <Route path='/' element={<Layout user={user} setUser={setUser} />}>
+              <Route path='/' element={<Layout user={user} setUser={setUser} baseUrl = {backendUrl} />}>
                   <Route path='' element={<Home user={user} />} />
                   <Route path='about' element={<ProtectedRoute user={user} element={<About />} />} />
                   <Route path='contact' element={<ProtectedRoute user={user} element={<Contact />} />} />
               </Route>
-              <Route path='/signIn' element={<Login />} />
-              <Route path='/forgotPassword' element={<ForgotPassword />} />
-              <Route path='/google' element={<UpdateDetails />}/>
-              <Route path='/signUp' element={<Signup />} />
-              <Route path='/users/:id/verify/:token' element={<EmailVerify />} /> 
-              <Route path='/users/forgotPassword/:token' element={<ForgotPasswordEmail/>}/>        
+              <Route path='/signIn' element={<Login baseUrl = {backendUrl}/>} />
+              <Route path='/forgotPassword' element={<ForgotPassword baseUrl = {backendUrl} />} />
+              <Route path='/google' element={<UpdateDetails baseUrl = {backendUrl} />}/>
+              <Route path='/signUp' element={<Signup baseUrl = {backendUrl} />} />
+              <Route path='/users/:id/verify/:token' element={<EmailVerify baseUrl = {backendUrl} />} /> 
+              <Route path='/users/forgotPassword/:token' element={<ForgotPasswordEmail baseUrl = {backendUrl} />}/>        
           </Routes>
           <ToastContainer />
       </div>
