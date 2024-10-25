@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Login() {
+function Login({baseUrl}) {
   const navigate = useNavigate()  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
