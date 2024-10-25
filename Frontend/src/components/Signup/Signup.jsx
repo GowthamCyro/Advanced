@@ -4,7 +4,7 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Signup() {
+function Signup({baseUrl}) {
 
   console.log('Component Rendered')
 
@@ -292,7 +292,7 @@ function Signup() {
                 <hr className="w-full border-[0.1px] border-white" />
               </div>
               <button className="inline-flex w-full items-center justify-center gap-3 border-[1px] border-white bg-black p-3 text-center text-white" onClick={()=>{
-                window.open('/api/v1/socialSign/google','_self');
+                window.open({baseUrl} + '/api/v1/socialSign/google','_self');
               }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

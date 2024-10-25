@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 
-function ForgotPasswordEmail() {
+function ForgotPasswordEmail({baseUrl}) {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
