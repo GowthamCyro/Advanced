@@ -71,7 +71,7 @@ const googleCallback = (req, res, next) => {
                 const options = {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === 'production',
-                };
+                }
                 return res
                 .cookie("accessToken", accessToken, options)
                 .cookie("refreshToken", refreshToken, options)

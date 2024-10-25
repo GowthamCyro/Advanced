@@ -36,7 +36,9 @@ import '../passport.js';
         const options = {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
-        }  
+        }
+        return res.
+        cookie(("accessToken", "babu vachindi", options))
     });
 
     router.route("/updateDetails").post(verifyJWT,detailsUpdate);
