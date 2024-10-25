@@ -32,6 +32,13 @@ import '../passport.js';
         googleCallback
     );
 
+    router.get("/cookie", (req, res) => {
+        const options = {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+        }  
+    });
+
     router.route("/updateDetails").post(verifyJWT,detailsUpdate);
 
 export default router
