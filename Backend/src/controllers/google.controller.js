@@ -2,6 +2,7 @@ import {asyncHandler} from '../utils/asyncHandler.js';
 import { ApiError } from '../utils/ApiError.js';
 import {User,TempUser} from "../models/index.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
+import { frontendUrl } from '../constants.js';
 
 import passport from "passport";
 
@@ -74,7 +75,7 @@ const googleCallback = (req, res, next) => {
                 return res
                 .cookie("accessToken", accessToken, options)
                 .cookie("refreshToken", refreshToken, options)
-                .redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/google`);
+                .redirect(`${process.env.CLIENT_URL || frontendUrl }/google`);
             } 
             else {
                 createdUser = existedUser;
