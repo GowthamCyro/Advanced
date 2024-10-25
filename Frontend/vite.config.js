@@ -6,9 +6,9 @@ export default defineConfig({
   server : {
     proxy: {
       '/api': {
-        target: 'http://localhost:7000',
+        target: 'https://advanced-hazel.vercel.app',
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     },
   },

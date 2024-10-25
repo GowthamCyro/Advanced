@@ -280,7 +280,7 @@ const loginUser = asyncHandler( async(req,res) => {
 
     const options = {
         httpOnly : true,
-        // secure : true  # will be used only when in https not localhost
+        secure : true  
     }
     return res
     .status(200)
@@ -310,7 +310,8 @@ const logoutUser = asyncHandler(async(req,res) => {
     )
 
     const options = {
-        httpOnly : true
+        httpOnly : true,
+        secure : true
     }
 
     return res.
