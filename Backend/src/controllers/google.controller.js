@@ -69,8 +69,7 @@ const googleCallback = (req, res, next) => {
 
                 const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(createdUser._id);
                 const options = {
-                    httpOnly: true,
-                    secure: true 
+                    httpOnly: true
                 };
                 return res
                 .cookie("accessToken", accessToken, options)
@@ -81,8 +80,7 @@ const googleCallback = (req, res, next) => {
                 createdUser = existedUser;
                 const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(createdUser._id);
                 const options = {
-                    httpOnly: true,
-                    secure: true  
+                    httpOnly: true
                 };
                 return res
                 .cookie("accessToken", accessToken, options)
