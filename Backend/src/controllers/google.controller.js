@@ -70,7 +70,7 @@ const googleCallback = (req, res, next) => {
                 const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(createdUser._id);
                 const options = {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === 'production',
+                    secure: true,
                 }
                 return res
                 .cookie("accessToken", accessToken, options)
@@ -82,7 +82,7 @@ const googleCallback = (req, res, next) => {
                 const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(createdUser._id);
                 const options = {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === 'production',
+                    secure: true,
                 };
                 return res
                 .cookie("accessToken", accessToken, options)
