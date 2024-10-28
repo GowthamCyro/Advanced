@@ -50,8 +50,7 @@ function App() {
   const [user, setUser] = useState(null);
   const location = useLocation();
   const userLogged = location.state?.userLogged;
-  const backendUrl = "https://advanced-hazel.vercel.app";
-
+  const backendUrl = "http://localhost:7000"
   useEffect(() => {
       const getUser = () => {
           axios
