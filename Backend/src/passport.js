@@ -6,7 +6,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/api/v1/socialSign/google/callback",
+      callbackURL: "https://advanced-hazel.vercel.app/api/v1/socialSign/google/callback",
     },
 
     async function (accessTokenT, refreshTokenT, profile, done) { 
