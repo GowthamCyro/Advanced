@@ -279,7 +279,8 @@ const loginUser = asyncHandler( async(req,res) => {
     const loggedInUser = await User.findById(user._id).select("-password -refershToken"); // again calling data base because user reference has no referesh token
 
     const options = {
-        httpOnly : true
+        httpOnly : true,
+        secure : true
     }
     return res
     .status(200)
@@ -309,7 +310,8 @@ const logoutUser = asyncHandler(async(req,res) => {
     )
 
     const options = {
-        httpOnly : true
+        httpOnly : true,
+        secure : true
     }
 
     return res.
@@ -345,8 +347,8 @@ const refreshAccessToken = asyncHandler( async(req,res) => {
         }
     
         const options = {
-            httpOnly : true
-            
+            httpOnly : true,
+            secure : true
         }
     
         const {accessToken,refreshToken}=await generateAccessAndRefreshTokens(user._id)
