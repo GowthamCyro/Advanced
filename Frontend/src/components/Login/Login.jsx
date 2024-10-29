@@ -28,7 +28,7 @@ function Login({baseUrl}) {
       'password' : password
     }
 
-    axios.post(baseUrl + '/api/v1/users/login',fd,{ withCredentials: true })
+    axios.post(baseUrl + '/api/v1/users/login',fd)
     .then(function (response) {
       setLoading(false);
       toast.success("User Logged In successfully!",{
