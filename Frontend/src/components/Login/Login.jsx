@@ -30,6 +30,7 @@ function Login({baseUrl}) {
 
     axios.post(baseUrl + '/api/v1/users/login',fd)
     .then(function (response) {
+      console.log(response);
       setLoading(false);
       toast.success("User Logged In successfully!",{
         autoClose: 3000,  
@@ -45,6 +46,7 @@ function Login({baseUrl}) {
       },2000)
     })
     .catch(function (error) {
+      console.log(error);
       setLoading(false);
 
       let errorMessage = 'Registration failed!';  
