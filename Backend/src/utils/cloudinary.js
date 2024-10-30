@@ -1,6 +1,6 @@
-import {v2 as cloudinary} from "cloudinary";
-import fs from "fs";
-import {v4 as uuidv4 } from 'uuid';
+import { v2 as cloudinary } from 'cloudinary';
+import streamifier from 'streamifier';
+import { v4 as uuidv4 } from 'uuid';
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
