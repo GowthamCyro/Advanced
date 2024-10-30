@@ -58,7 +58,12 @@ function Signup({baseUrl}) {
       fd.append('coverImage',coverImage);
     }
     
-    axios.post(baseUrl + '/api/v1/users/register',fd,{withCredentials : true})
+    axios.post(baseUrl + '/api/v1/users/register',fd,{
+      headers: {
+          "Content-Type": "multipart/form-data"
+      },
+      withCredentials: true
+    })
     .then(function (response) {
       setLoading(false);
       console.log(response);
