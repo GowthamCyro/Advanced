@@ -83,13 +83,13 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(400, "User already Exists");
     }
 
-    // Accessing files from memory storage
-    const avatarBuffer = req.files?.avatar[0]?.buffer;
-    const coverImageBuffer = req.files?.coverImage[0]?.buffer;
-
-    if (!avatarBuffer) {
+    // Check if files were uploaded and handle missing file error
+    if (!req.files || !req.files.avatar || !req.files.avatar[0]) {
         throw new ApiError(400, "Avatar File is required");
     }
+
+    const avatarBuffer = req.files.avatar[0].buffer;
+    const coverImageBuffer = req.files.coverImage?.[0]?.buffer;
 
     const avatar = await uploadOnCloudinary(avatarBuffer, req.files.avatar[0].originalname);
     const coverImage = coverImageBuffer ? await uploadOnCloudinary(coverImageBuffer, req.files.coverImage[0].originalname) : null;
@@ -139,6 +139,7 @@ const registerUser = asyncHandler(async (req, res) => {
         );
     }
 });
+
 
 
 const forgotPasswordEmail = asyncHandler( async(req,res) => {
