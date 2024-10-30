@@ -68,92 +68,78 @@ const verifyEmail = asyncHandler( async(req,res) =>  {
     )
 })
 
-const registerUser = asyncHandler( async (req,res) => {
+const registerUser = asyncHandler(async (req, res) => {
+    const { fullName, username, email, password } = req.body;
 
-    // get user details from the front end
-        // check whether all the values are given
-        // check if user already exists 
-        // check for images, check for avatar
-        // upload avatar and coverImage and wait for status
-        // save the user object in db
-        // remove refreshToken and password in response
-        // check for user creation
-        // return response
-
-    const {fullName,username,email,password} = req.body
-
-    if([fullName,email,username,password].some((feild) => feild?.trim() === "")){
-        throw new ApiError(400,"Values should not be empty")
+    if ([fullName, email, username, password].some((field) => field?.trim() === "")) {
+        throw new ApiError(400, "Values should not be empty");
     }
 
     const existedUser = await User.findOne({
-        $or : [{ username },{ email }]
-    })
+        $or: [{ username }, { email }]
+    });
 
-    if(existedUser){
-        throw new ApiError(400,"User already Exists");
+    if (existedUser) {
+        throw new ApiError(400, "User already Exists");
     }
 
-    const avatarLocalPath = req.files?.avatar[0]?.path;
-    //const coverImageLocalPath = req.files?.coverImage[0]?.path;
+    // Accessing files from memory storage
+    const avatarBuffer = req.files?.avatar[0]?.buffer;
+    const coverImageBuffer = req.files?.coverImage[0]?.buffer;
 
-    let coverImageLocalPath;
-    if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
-        coverImageLocalPath = req.files.coverImage[0].path
+    if (!avatarBuffer) {
+        throw new ApiError(400, "Avatar File is required");
     }
 
-    if(!avatarLocalPath){
-        throw new ApiError(400,"Avatar File is required");
-    }
+    const avatar = await uploadOnCloudinary(avatarBuffer, req.files.avatar[0].originalname);
+    const coverImage = coverImageBuffer ? await uploadOnCloudinary(coverImageBuffer, req.files.coverImage[0].originalname) : null;
 
-    const avatar = await uploadOnCloudinary(avatarLocalPath);
-    const coverImage = await uploadOnCloudinary(coverImageLocalPath);
-
-    if(!avatar){
-        throw new ApiError(400,"Image did not uploaded successfully to cloudinary! Please try again !");
+    if (!avatar) {
+        throw new ApiError(400, "Image did not upload successfully to Cloudinary! Please try again!");
     }
 
     const user = await TempUser.create({
         fullName,
-        avatar : {
-            public_id : avatar.public_id,
-            url : avatar?.url
+        avatar: {
+            public_id: avatar.public_id,
+            url: avatar.url,
         },
         coverImage: {
-            public_id : coverImage?.public_id || "",
-            url : coverImage?.url || ""
+            public_id: coverImage?.public_id || "",
+            url: coverImage?.url || "",
         },
         email,
         password,
-        username : username.toLowerCase()
-    })
+        username: username.toLowerCase(),
+    });
 
     const createdUser = await TempUser.findById(user._id).select("-password");
 
-    if(!createdUser){
-        throw new ApiError(501,"Something went wrong while creating the user");
+    if (!createdUser) {
+        throw new ApiError(501, "Something went wrong while creating the user");
     }
-    
+
     const token = await new Token({
-        userId : createdUser._id,
-        token : crypto.randomBytes(32).toString("hex")
+        userId: createdUser._id,
+        token: crypto.randomBytes(32).toString("hex"),
     }).save();
 
     const url = `${process.env.BASE_URL}/users/${createdUser._id}/verify/${token.token}`;
-    await sendMail(createdUser.email,"Email Verification",url, createdUser._id);
+    await sendMail(createdUser.email, "Email Verification", url, createdUser._id);
 
     await delay(5000);
 
     const emailStatus = await checkEmailBounce(createdUser.email, createdUser._id);
     if (emailStatus) {
-        await TempUser.deleteOne({_id : createdUser._id});
+        await TempUser.deleteOne({ _id: createdUser._id });
         throw new ApiError(401, "Email does not exist, please provide a valid email.");
     } else {
         return res.status(201).json(
             new ApiResponse(200, createdUser, "Verification link sent to the email! Please verify.")
         );
     }
-})
+});
+
 
 const forgotPasswordEmail = asyncHandler( async(req,res) => {
 
