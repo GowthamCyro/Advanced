@@ -58,7 +58,7 @@ function Signup({baseUrl}) {
       fd.append('coverImage',coverImage);
     }
     
-    axios.post(baseUrl + '/api/v1/users/register',fd)
+    axios.post(baseUrl + '/api/v1/users/register',fd,{withCredentials : true})
     .then(function (response) {
       setLoading(false);
       console.log(response);
