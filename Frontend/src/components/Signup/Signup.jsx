@@ -122,6 +122,19 @@ function Signup({baseUrl}) {
 
   }
 
+  const googleLogin = () => {
+    window.open(baseUrl + '/api/v1/socialSign/google','_self')
+    .then(function(response){
+      console.log(response);
+      setTimeout(()=>{
+        navigate('/',{ state: { userLogged : true }})
+      },2000)
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+}
+
 
   return (
     <>
@@ -296,9 +309,7 @@ function Signup({baseUrl}) {
                 <p className="text-sm">OR</p>
                 <hr className="w-full border-[0.1px] border-white" />
               </div>
-              <button className="inline-flex w-full items-center justify-center gap-3 border-[1px] border-white bg-black p-3 text-center text-white" onClick={()=>{
-                window.open({baseUrl} + '/api/v1/socialSign/google','_self');
-              }}>
+              <button className="inline-flex w-full items-center justify-center gap-3 border-[1px] border-white bg-black p-3 text-center text-white" onClick={googleLogin}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="24"
